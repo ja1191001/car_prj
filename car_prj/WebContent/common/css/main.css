@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+
+body, h1, h2, h3, div, dl, dt, dd, ul, ol, li, pre, code, form, fieldset,
+	legend, textarea, p, th, td, input, select, button {
+	margin: 0px;
+	padding: 0px
+}
+
+ul, dl, ol, li {
+	list-style: none
+}
+
+fieldset, img {
+	border: 0px none 
+}
+
+input, select, textarea, button {
+	vertical-align: middle
+}
+
+body, th, td, input, h1, h2, h3, select, textarea, button {
+	font-size: 12px;
+	line-height: 1.6;
+	font-family: dotum, '돋움', sans-serif;
+	color: #232
+}
+
+a {
+	color: #232;
+	text-decoration: none
+}
+
+a:HOVER {
+	color: #356DFF, text-decoration:underline
+}
+
+address, caption, cite, code, dfn, em, var {
+	font-style: normal;
+	font-weight: normal
+}
+
+.show {
+	display: block
+}
+
+.hide {
+	display: none
+}
+
+.inputBox {
+	padding-left: 3px;
+	padding-right: 3px;
+	height:20px;
+	border: 1px solid #EDEDED
+}
+
+.btn {
+	height:20px;
+	padding-left: 3px;
+	padding-right: 3px;
+	border: 1px solid #EDEDED;
+	background-color: #c6ebee
+}
