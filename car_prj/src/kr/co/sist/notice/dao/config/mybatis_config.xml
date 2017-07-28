@@ -19,6 +19,6 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="kr/co/sist/dao/mapper/main_mapper.xml"/>
+    <mapper resource="kr/co/sist/notice/dao/mapper/main_mapper.xml"/>
   </mappers>
 </configuration>

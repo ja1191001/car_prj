@@ -22,7 +22,7 @@ public class MainController {
 	 public String mainPage(Model model){//model을 매개변수로 선언해 준다
 		 
 //		String configLocation="kr/co/sist/controller/application_context.xml";
-		String configLocation="kr/co/sist/controller/app_con.xml";
+		String configLocation="kr/co/sist/notice/controller/app_con.xml";
 		//Spring Container 사용
 		ApplicationContext ac=new ClassPathXmlApplicationContext(configLocation);
 		
