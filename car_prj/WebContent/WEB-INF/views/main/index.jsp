@@ -7,18 +7,56 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" 
-   href="http://localhost:8080/spring_mvc1/common/css/main.css">
+   href="http://localhost:8080/jsp_prj/common/css/main.css">
    	<style type="text/css">
    	#wrap{width:1000px; height:900px; margin:0px auto}
    	#header{wedth:1000px; height: 100px; position: relative; 
    	background: #FFBFBF 
    	url(http://localhost:8080/spring_mvc1/common/images/header_background.png) no-repeat;}
    	#logo{position: absolute; top:20px;left:50px}
-   	#content{width: 1000px; height:700px}
+   	#content{width: 1000px; height:700px; position: relative;}
    	#footer{width:1000px; height:100px}
    	#footer_text{width:500px;height:80px; padding-top:20px;float:right; padding-right: 10px}
    	
+   	.tab {
+   border-top: 3px solid #5B7CE5;
+   border-spacing: 0px
+}
+
+th {
+   font-weight: normal;
+   background-color: #FAFAFA;
+   border-bottom: 1px solid #E7E7E7;
+   height: 37px
+}
+
+.numTitle {width: 60px}
+.subjectTitle {width: 300px}
+.writerTitle {width: 100px}
+.evtTitle {width: 120px}
+.dateTitle {width: 120px}
+.fileTitle {width: 80px}
+/* text-align : 글자 정렬  left,center,right  */
+td {
+   border-bottom: 1px solid #E7E7E7;
+   height: 28px;
+   text-align: center;
+}
+
+tr:HOVER {background-color: #EAE9F7}
    </style>
+<script type="text/javascript">
+function chkNull(){
+	var obj=document.searchFrm;
+	if(obj.keyword.value==""){
+		alert("검색어를 입력해 주세요");
+		obj.keyword.focus();
+		return;
+	}//end if
+	obj.submit();
+}//chkNull
+
+</script>   
 </head>
 <body>
 	<!-- 작성일 : 2017. 7. 26.
@@ -44,12 +82,6 @@
 				</marquee>
 			</c:if>
 			<table>
-			<c:forEach var="car" items="${requestScope.carList }">
-				<td>
-					<img src="http://localhost:8080/spring_mvc1/images/car_img/${car.car_img }" width="110">
-					<br/><c:out value="${car.model }"/> (<c:out value="${car.car_year }"/>년식)
-				</td>
-			</c:forEach>
 			</table>
 		</div>
 		
@@ -65,6 +97,62 @@
 		</ul>
 		</div>
 		
+		<div style="width:800px; height:360px;top:100px;'margin:0px auto">
+	<%-- <%= totalCount %>건<br/>
+	한 화면에 보여줄 글 수 <%=pageScale %>건<br/>
+	필요한 장 <%= totalPage %>장<br/>
+	시작번호 <%= startNum %>번<br/>
+	끝번호 <%= endNum %>번<br/> --%>
+	<table class="tab" style="margin: 10px">
+		<colgroup>
+			<col width="10%"/>
+			<col width="*"/>
+			<col width="15%"/>
+			<col width="20%"/>
+		</colgroup>
+	<thead>
+	<tr>
+		<th class="numTitle" scope="col">번호</th>
+		<th class="subjectTitle" scope="col">제목</th>
+		<th class="writerTitle" scope="col">작성자</th>
+		<th class="dateTitle" scope="col">작성일</th>
+	</tr>
+	</thead>
+	<tbody>
+	
+			<c:forEach var="car" items="${requestScope.carList }">
+			<tr>
+				<td>
+					<img src="http://localhost:8080/spring_mvc1/images/car_img/${car.car_img }" width="110">
+					<br/><c:out value="${car.model }"/> (<c:out value="${car.car_year }"/>년식)
+				</td>
+			</tr>	
+			</c:forEach>
+	
+		
+			
+		
+		
+	
+	</tbody>
+	</table>
+	</div>
+	<div style="text-align:center;">
+	
+	</div>
+	<div style="text-align: center;">
+	<form action="index.jsp" method="get" name="searchFrm">
+		<select name="field">
+			<option value="subject">제목</option>
+			<option value="contents"">내용</option>
+		</select>
+		<input type="text" name="keyword" class="inputBox" value=""/>
+		
+		<input type="button" value="검색" class="btn" onclick="chkNull()" />
+		
+	</form>
+
+	</div>
 	</div>
 	<div id="footer">
 		<div id="footer_text">
