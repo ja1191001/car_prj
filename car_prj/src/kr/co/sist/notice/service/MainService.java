@@ -31,5 +31,18 @@ public class MainService {
 		return list;
 	}//searchNotice
 	
+	public List<NoticeData> searchNoticeDetail(){
+		
+		List<NoticeData> list=null;
+		
+		try {
+			list=md.selectNotice();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+		
+		return list;
+	}//searchNotice
+	
 	
 }//class

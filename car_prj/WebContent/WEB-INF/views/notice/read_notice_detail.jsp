@@ -1,7 +1,11 @@
+<%@page import="kr.co.sist.notice.dao.MainDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<!DOCTYPE html>
+    pageEncoding="UTF-8"
+    info="상세 글 보기"
+    errorPage="cal_err.jsp"
+    %>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+ <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -57,13 +61,13 @@ function chkNull(){
 }//chkNull
 
 </script>   
-</head>
+</head> 
 <body>
-	<!-- 작성일 : 2017. 7. 26.
-		  작성자 : user
-		  내용 : 			
-	-->
-	<div id="wrap">
+<%
+ 
+%>
+
+  <div id="wrap">
 	<div id="header">
 		<div id="logo">
 			<a href="#"><img src="http://localhost:8080/spring_mvc1/common/images/default.jpg" width="100" height="60" title="메인으로"></a>
@@ -76,68 +80,47 @@ function chkNull(){
 		</div>
 		
 	<div id="notice" style="width:800px; height:360px;top:100px;'margin:0px auto">
-	<%-- <%= totalCount %>건<br/>
-	한 화면에 보여줄 글 수 <%=pageScale %>건<br/>
-	필요한 장 <%= totalPage %>장<br/>
-	시작번호 <%= startNum %>번<br/>
-	끝번호 <%= endNum %>번<br/> --%>
-	<table class="tab" style="margin: 10px">
-		<colgroup>
-			<col width="10%"/>
-			<col width="*"/>
-			<col width="15%"/>
-			<col width="20%"/>
-		</colgroup>
-	<thead>
-	<tr>
-		<th class="numTitle" scope="col">번호</th>
-		<th class="subjectTitle" scope="col"
-		 href="">제목</th>
-		<th class="writerTitle" scope="col">작성자</th>
-		<th class="dateTitle" scope="col">작성일</th>
-	</tr>
-	</thead>
-	<tbody>
-	<c:choose>
-		<c:when test="${empty requestScope.noticeList }">
-			<tr><td colspan="4" align="center">작성된 글이 없습니다.</td></tr>
-		</c:when>
-		<c:otherwise>
-			<c:forEach var="notice" items="${requestScope.noticeList }">
-			<tr>
-				<td><c:out value="${notice.num }"/></td>
-				<td> <a href="notice/read_notice_detail.do"><c:out value="${notice.title }"/></td>
-				<td>관리자</td>
-				<td><c:out value="${notice.hiredate }"/></td>
-			</tr>	
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
+    
+ <table class="tab" style="margin: 10px">
+	<colgroup>
+		<col width="15%"/>
+		<col width="35%"/>
+		<col width="15%"/>
+		<col width="35%"/>
+	</colgroup>
+	<caption style="background-color: #ccc">게시글 상세</caption>
+	<tbody >
+	<c:set var="noticeDetail" value="${requestScope.noticeDetailList }"></c:set>
+		<tr>
+			<th scope="row">글 번호</th>
+			<td><c:out value="${requestScope.data.num }"/> </td>
+			<th scope="row">조회수</th>
+			<td><c:out value="${requestScope.data.num }"/></td>
+		</tr>
+		<tr>
+			<th scope="row">작성자</th>
+			<td>관리자</td>
+			<th scope="row">작성시간</th>
+			<td><c:out value="${requestScope.data.hiredate }"/></td>
+		</tr>
+		<tr>
+			<th scope="row">제목</th>
+			<td colspan="3"><c:out value="${requestScope.data.title }"/></td>
+		</tr>
+		<tr>
+			<td colspan="4" style="border: 1px solid #ccc; height : 100px;">
+				<c:out value="${requestScope.data.content }"/>
+			</td>
+		</tr>
 	</tbody>
-	</table>
-	</div>
-	<div style="text-align:center;">
-	
-	</div>
-	<div style="text-align: center;">
-	<form action="index.jsp" method="get" name="searchFrm">
-		<select name="field">
-			<option value="subject">제목</option>
-			<option value="contents"">내용</option>
-		</select>
-		<input type="text" name="keyword" class="inputBox" value=""/>
-		
-		<input type="button" value="검색" class="btn" onclick="chkNull()" />
-		
-	</form>
-
-	</div>
-	</div>
-	<div id="footer">
+ </table>
+</div>
+</div>
+<div id="footer">
 		<div id="footer_text">
 		Copyright &copy; 2017 class4 dongha, All Right Reserved
 		</div>
-	</div>
-	</div>
+</div>
+</div>
 </body>
 </html>

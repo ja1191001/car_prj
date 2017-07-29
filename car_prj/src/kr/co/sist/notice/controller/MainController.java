@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.sist.notice.domain.NoticeData;
 import kr.co.sist.notice.service.MainService;
+import kr.co.sist.notice.vo.NoticeVO;
+import kr.co.sist.notice.util.HangulConv;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -21,7 +23,6 @@ public class MainController {
 	@RequestMapping(value="/index.do",method=GET)
 	 public String mainPage(Model model){//model을 매개변수로 선언해 준다
 		 
-//		String configLocation="kr/co/sist/controller/application_context.xml";
 		String configLocation="kr/co/sist/notice/controller/app_con.xml";
 		//Spring Container 사용
 		ApplicationContext ac=new ClassPathXmlApplicationContext(configLocation);
@@ -31,9 +32,20 @@ public class MainController {
 
 		//업무처리 결과 받기, View로 전달
 		List<NoticeData> noticeList=ms.searchNotice();
+		List<NoticeData> noticeDetailList=ms.searchNoticeDetail();
 		
 		model.addAttribute("noticeList",noticeList);
+		model.addAttribute("noticeDetailList",noticeDetailList);
 		
 		 return "main/index";
 	 }//configLocation
+	
+	@RequestMapping(value="/notice/read_notice_detail.do")
+	public String useNoticeDetail(Model model, NoticeVO nv){
+		
+		model.addAttribute("data",nv);
+		
+		return "notice/read_notice_detail.do";
+	}//useNoticeDetail
+	
 }

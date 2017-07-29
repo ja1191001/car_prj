@@ -22,4 +22,16 @@ public class MainDAO {
 		return list;
 	}//selectCar
 	
+	public List<NoticeData> selectNoticeDetail()throws SQLException{
+		List<NoticeData> list=null;
+		
+		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
+		list=ss.selectList("noticeDetailView");
+		if(ss!=null){
+			ss.close();
+		}//end if
+		
+		return list;
+	}//selectCar
+	
 }//class
