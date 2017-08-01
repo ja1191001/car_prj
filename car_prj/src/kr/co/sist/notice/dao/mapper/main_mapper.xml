@@ -5,17 +5,24 @@
 <mapper namespace="kr.co.sist.notice.dao.mainData">
 	
 	<select id="noticeView" resultType="kr.co.sist.notice.domain.NoticeData" >
-		
-		SELECT NUM, TITLE, HIREDATE
-		FROM NOTICE
-		ORDER BY ROWNUM DESC
+	
+	SELECT NUM, TITLE, HIREDATE
+	FROM (SELECT ROWNUM NUM, TITLE, HIREDATE	
+			FROM	(SELECT TITLE, HIREDATE
+					FROM NOTICE
+					ORDER BY HIREDATE))
+	ORDER BY NUM DESC				
 	</select>   
 	
-	<select id="noticeDetailView" parameterType="String" resultType="kr.co.sist.notice.domain.NoticeData"  >
+	<select id="noticeDetailView" parameterType="int" resultType="kr.co.sist.notice.domain.NoticeData"  >
 		
-		SELECT NUM, TITLE, HIREDATE, CONTENT
-		FROM NOTICE
-		WHERE NUM = #{num} 
+	SELECT NUM, TITLE, CONTENT, HIREDATE
+	FROM (SELECT ROWNUM NUM, TITLE, CONTENT, HIREDATE	
+			FROM	(SELECT TITLE, CONTENT, HIREDATE
+					FROM NOTICE
+					ORDER BY HIREDATE))
+	WHERE NUM = #{num} 
+	ORDER BY NUM DESC		
 		
 	</select>
 	

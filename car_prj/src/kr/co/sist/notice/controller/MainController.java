@@ -42,7 +42,7 @@ public class MainController {
 	 }//configLocation
 	
 	@RequestMapping(value="/notice/read_notice_detail.do")
-	public String useNoticeDetail(Model model, @RequestParam(defaultValue="0")String num){
+	public String useNoticeDetail(Model model, @RequestParam(defaultValue="0")int num){
 		
 		//service
 		String configLocation="kr/co/sist/notice/controller/app_con.xml";

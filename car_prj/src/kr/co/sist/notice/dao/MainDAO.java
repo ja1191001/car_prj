@@ -26,7 +26,7 @@ public class MainDAO {
 		return list;
 	}//selectCar
 	
-	public NoticeData selectNoticeDetail( String num )throws SQLException{
+	public NoticeData selectNoticeDetail( int num )throws SQLException{
 		NoticeData nd=null;
 		
 		SqlSession ss= GetSqlSession.getInstance().getSqlSession();

@@ -1,18 +1,19 @@
 package kr.co.sist.notice.domain;
 
 public class NoticeData {
-
-	private String num, title, hiredate, content;
+	private int num;
+	private String title, hiredate, content;
 
 	
-	public String getNum() {
-		return num;
-	}
-	public void setNum(String num) {
-		this.num = num;
-	}
+	
 	public String getTitle() {
 		return title;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public void setTitle(String title) {
 		this.title = title;
