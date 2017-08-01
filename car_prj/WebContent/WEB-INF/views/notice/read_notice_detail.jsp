@@ -14,13 +14,13 @@
    href="http://localhost:8080/car_prj/common/css/main.css">
    	<style type="text/css">
    	#wrap{width:800px; height:900px; margin:0px auto}
-   	#header{wedth:1000px; height: 100px; position: relative; 
+   	#header{width:1000px; height: 100px; position: relative; 
    	background: #FFBFBF 
    	url(http://localhost:8080/spring_mvc1/common/images/header_background.png) no-repeat;}
    	#logo{position: absolute; top:20px;left:50px}
    	#content{width: 800px; min-height:700px; position: relative;}
-   	#footer{width:1000px; min-height:100px}
-   	#footer_text{width:500px;min-height:80px; padding-top:20px;float:right; padding-right: 10px}
+   	#footer{width:1000px; height:100px}
+   	#footer_text{width:500px;height:80px; padding-top:20px;float:right; padding-right: 10px}
    	
    	.tab {
    border-top: 3px solid #5B7CE5;
@@ -69,9 +69,9 @@ tr:HOVER {background-color: #EAE9F7}
 		
 	<div id="notice" style="width:800px; height:360px;top:100px;'margin:0px auto">
     
- <table class="tab" style="margin: 10px">
+ <table class="tab" style="margin: 10px; min-height: 300px;">
 	<colgroup>
-		<col width="7%"/>
+		<col width="9%"/>
 		<col width="*%"/>
 		<col width="8%"/>
 		<col width="20%"/>
@@ -92,18 +92,22 @@ tr:HOVER {background-color: #EAE9F7}
 			<td><c:out value="${requestScope.detail_data.hiredate }"/></td>
 		</tr>
 		<tr>
-			<td colspan="4" align="left" style="border: 1px solid #ccc; height : 100px;" >
-				<c:out value="${requestScope.detail_data.content }"/>
+			<td colspan="4" align="left" style="border: 1px solid #ccc; height:400px; min-height : 400px; margin: 10px" >
+				<textarea rows="30" cols="110" ><c:out value="${requestScope.detail_data.content }"/></textarea>
 			</td>
 		</tr>
 	</tbody>
  </table>
 </div>
-<div align="center">
-<a href="notice/read_notice_detail.do?num=${ requestScope.detail_data.num-1 }"><input type="button" class="btn" value="이전 글" ></a>
-<a href="notice/read_notice_detail.do?num=${ requestScope.detail_data.num+1 }"><input type="button" class="btn" value="다음 글" ></a>
-<a href="../index.do"><input type="button" class="btn" value="목록으로" ></a>
 </div>
+<div align="center" >
+<c:if test="${1 < requestScope.detail_data.num }">
+<a href="read_notice_detail.do?num=${ requestScope.detail_data.num-1 }"><input type="button" class="btn" value="이전 글" ></a>
+</c:if>
+<c:if test="${ not empty (requestScope.detail_data.num+1) }">
+<a href="read_notice_detail.do?num=${ requestScope.detail_data.num+1 }"><input type="button" class="btn" value="다음 글" ></a>
+</c:if>
+<a href="../index.do"><input type="button" class="btn" value="목록으로" ></a>
 </div>
 <div id="footer">
 		<div id="footer_text">

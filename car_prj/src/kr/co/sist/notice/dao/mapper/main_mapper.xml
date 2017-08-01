@@ -8,9 +8,10 @@
 		
 		SELECT NUM, TITLE, HIREDATE
 		FROM NOTICE
+		ORDER BY ROWNUM DESC
 	</select>   
 	
-	<select id="noticeDetailView" parameterType="int" resultType="kr.co.sist.notice.domain.NoticeData"  >
+	<select id="noticeDetailView" parameterType="String" resultType="kr.co.sist.notice.domain.NoticeData"  >
 		
 		SELECT NUM, TITLE, HIREDATE, CONTENT
 		FROM NOTICE

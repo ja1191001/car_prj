@@ -33,7 +33,7 @@ public class MainService {
 	}//searchNotice
 	
 //	public List<NoticeData> searchNoticeDetail(NoticeVO n_vo){
-	public NoticeData searchNoticeDetail(int num){	
+	public NoticeData searchNoticeDetail(String num){	
 		NoticeData nd=null;
 		try {
 			nd=md.selectNoticeDetail( num );

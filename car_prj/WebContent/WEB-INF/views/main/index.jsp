@@ -14,7 +14,7 @@
    	background: #FFBFBF 
    	url(http://localhost:8080/spring_mvc1/common/images/header_background.png) no-repeat;}
    	#logo{position: absolute; top:20px;left:50px}
-   	#content{width: 800px; height:700px; position: relative;}
+   	#content{width: 800px; min-height:700px; position: relative;}
    	#footer{width:800px; height:100px}
    	#footer_text{width:500px;height:80px; padding-top:20px;float:right; padding-right: 10px}
    	

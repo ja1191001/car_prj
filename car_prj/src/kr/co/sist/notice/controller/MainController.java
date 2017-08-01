@@ -42,7 +42,7 @@ public class MainController {
 	 }//configLocation
 	
 	@RequestMapping(value="/notice/read_notice_detail.do")
-	public String useNoticeDetail(Model model, @RequestParam(defaultValue="0")int num){
+	public String useNoticeDetail(Model model, @RequestParam(defaultValue="0")String num){
 		
 		//service
 		String configLocation="kr/co/sist/notice/controller/app_con.xml";
@@ -50,6 +50,8 @@ public class MainController {
 		
 		MainService ms=ac.getBean("main_service",MainService.class);
 		NoticeData nd= ms.searchNoticeDetail(num);
+		
+		
 		model.addAttribute("detail_data",nd);
 		
 		return "notice/read_notice_detail";
