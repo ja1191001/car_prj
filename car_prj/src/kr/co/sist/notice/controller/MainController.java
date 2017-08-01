@@ -3,6 +3,7 @@ package kr.co.sist.notice.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.sist.notice.domain.NoticeData;
 import kr.co.sist.notice.service.MainService;
@@ -21,7 +22,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MainController {
 
 	@RequestMapping(value="/index.do",method=GET)
-	 public String mainPage(Model model){//model을 매개변수로 선언해 준다
+	 public String mainPage(Model model, NoticeVO n_vo){//model을 매개변수로 선언해 준다
 		 
 		String configLocation="kr/co/sist/notice/controller/app_con.xml";
 		//Spring Container 사용
@@ -30,22 +31,29 @@ public class MainController {
 		//bean 꺼내기
 		MainService ms=ac.getBean("main_service",MainService.class); //리플렉트
 
+		
+		
 		//업무처리 결과 받기, View로 전달
 		List<NoticeData> noticeList=ms.searchNotice();
-		List<NoticeData> noticeDetailList=ms.searchNoticeDetail();
 		
 		model.addAttribute("noticeList",noticeList);
-		model.addAttribute("noticeDetailList",noticeDetailList);
 		
 		 return "main/index";
 	 }//configLocation
 	
 	@RequestMapping(value="/notice/read_notice_detail.do")
-	public String useNoticeDetail(Model model, NoticeVO nv){
+	public String useNoticeDetail(Model model, @RequestParam(defaultValue="0")int num){
 		
-		model.addAttribute("data",nv);
+		//service
+		String configLocation="kr/co/sist/notice/controller/app_con.xml";
+		ApplicationContext ac=new ClassPathXmlApplicationContext(configLocation);
 		
-		return "notice/read_notice_detail.do";
+		MainService ms=ac.getBean("main_service",MainService.class);
+		NoticeData nd= ms.searchNoticeDetail(num);
+		model.addAttribute("detail_data",nd);
+		
+		return "notice/read_notice_detail";
 	}//useNoticeDetail
+	
 	
 }

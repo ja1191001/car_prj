@@ -4,11 +4,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.notice.domain.NoticeData;
+import kr.co.sist.notice.vo.NoticeVO;
 @Component
 public class MainDAO {
+	
+	@Autowired(required=false)
 	
 	public List<NoticeData> selectNotice()throws SQLException{
 		List<NoticeData> list=null;
@@ -22,16 +26,15 @@ public class MainDAO {
 		return list;
 	}//selectCar
 	
-	public List<NoticeData> selectNoticeDetail()throws SQLException{
-		List<NoticeData> list=null;
+	public NoticeData selectNoticeDetail( int num )throws SQLException{
+		NoticeData nd=null;
 		
 		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
-		list=ss.selectList("noticeDetailView");
+		nd=ss.selectOne("noticeDetailView",num);
 		if(ss!=null){
 			ss.close();
 		}//end if
 		
-		return list;
+		return nd;
 	}//selectCar
-	
 }//class

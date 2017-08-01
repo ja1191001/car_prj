@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.notice.dao.MainDAO;
 import kr.co.sist.notice.domain.NoticeData;
+import kr.co.sist.notice.vo.NoticeVO;
 @Component("main_service")
 public class MainService {
 	@Autowired
@@ -31,18 +32,16 @@ public class MainService {
 		return list;
 	}//searchNotice
 	
-	public List<NoticeData> searchNoticeDetail(){
-		
-		List<NoticeData> list=null;
-		
+//	public List<NoticeData> searchNoticeDetail(NoticeVO n_vo){
+	public NoticeData searchNoticeDetail(int num){	
+		NoticeData nd=null;
 		try {
-			list=md.selectNotice();
+			nd=md.selectNoticeDetail( num );
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}//end catch
 		
-		return list;
+		return nd;
 	}//searchNotice
-	
 	
 }//class

@@ -13,14 +13,14 @@
 <link rel="stylesheet" type="text/css" 
    href="http://localhost:8080/car_prj/common/css/main.css">
    	<style type="text/css">
-   	#wrap{width:1000px; height:900px; margin:0px auto}
+   	#wrap{width:800px; height:900px; margin:0px auto}
    	#header{wedth:1000px; height: 100px; position: relative; 
    	background: #FFBFBF 
    	url(http://localhost:8080/spring_mvc1/common/images/header_background.png) no-repeat;}
    	#logo{position: absolute; top:20px;left:50px}
-   	#content{width: 1000px; height:700px; position: relative;}
-   	#footer{width:1000px; height:100px}
-   	#footer_text{width:500px;height:80px; padding-top:20px;float:right; padding-right: 10px}
+   	#content{width: 800px; min-height:700px; position: relative;}
+   	#footer{width:1000px; min-height:100px}
+   	#footer_text{width:500px;min-height:80px; padding-top:20px;float:right; padding-right: 10px}
    	
    	.tab {
    border-top: 3px solid #5B7CE5;
@@ -49,18 +49,6 @@ td {
 
 tr:HOVER {background-color: #EAE9F7}
    </style>
-<script type="text/javascript">
-function chkNull(){
-	var obj=document.searchFrm;
-	if(obj.keyword.value==""){
-		alert("검색어를 입력해 주세요");
-		obj.keyword.focus();
-		return;
-	}//end if
-	obj.submit();
-}//chkNull
-
-</script>   
 </head> 
 <body>
 <%
@@ -76,44 +64,45 @@ function chkNull(){
 	<div id="content">
 	
 		<div id="main_banner">
-			<img src="http://localhost:8080/spring_mvc1/images/main/main_banner.png">
+			<img src="http://localhost:8080/car_prj/images/main/main_banner.png">
 		</div>
 		
 	<div id="notice" style="width:800px; height:360px;top:100px;'margin:0px auto">
     
  <table class="tab" style="margin: 10px">
 	<colgroup>
-		<col width="15%"/>
-		<col width="35%"/>
-		<col width="15%"/>
-		<col width="35%"/>
+		<col width="7%"/>
+		<col width="*%"/>
+		<col width="8%"/>
+		<col width="20%"/>
 	</colgroup>
 	<caption style="background-color: #ccc">게시글 상세</caption>
 	<tbody >
-	<c:set var="noticeDetail" value="${requestScope.noticeDetailList }"></c:set>
+	<c:set var="noticeDetail" value="${requestScope.detail_data }"></c:set>
 		<tr>
-			<th scope="row">글 번호</th>
-			<td><c:out value="${requestScope.data.num }"/> </td>
-			<th scope="row">조회수</th>
-			<td><c:out value="${requestScope.data.num }"/></td>
+			<th scope="col">글 번호</th>
+			<th scope="col" width="500">제목</th>
+			<th scope="col">작성자</th>
+			<th scope="col">작성시간</th>
 		</tr>
-		<tr>
-			<th scope="row">작성자</th>
+		<tr>	
+			<td><c:out value="${requestScope.detail_data.num }"/> </td>
+			<td><c:out value="${requestScope.detail_data.title }"/></td>
 			<td>관리자</td>
-			<th scope="row">작성시간</th>
-			<td><c:out value="${requestScope.data.hiredate }"/></td>
+			<td><c:out value="${requestScope.detail_data.hiredate }"/></td>
 		</tr>
 		<tr>
-			<th scope="row">제목</th>
-			<td colspan="3"><c:out value="${requestScope.data.title }"/></td>
-		</tr>
-		<tr>
-			<td colspan="4" style="border: 1px solid #ccc; height : 100px;">
-				<c:out value="${requestScope.data.content }"/>
+			<td colspan="4" align="left" style="border: 1px solid #ccc; height : 100px;" >
+				<c:out value="${requestScope.detail_data.content }"/>
 			</td>
 		</tr>
 	</tbody>
  </table>
+</div>
+<div align="center">
+<a href="notice/read_notice_detail.do?num=${ requestScope.detail_data.num-1 }"><input type="button" class="btn" value="이전 글" ></a>
+<a href="notice/read_notice_detail.do?num=${ requestScope.detail_data.num+1 }"><input type="button" class="btn" value="다음 글" ></a>
+<a href="../index.do"><input type="button" class="btn" value="목록으로" ></a>
 </div>
 </div>
 <div id="footer">

@@ -9,13 +9,13 @@
 <link rel="stylesheet" type="text/css" 
    href="http://localhost:8080/car_prj/common/css/main.css">
    	<style type="text/css">
-   	#wrap{width:1000px; height:900px; margin:0px auto}
-   	#header{wedth:1000px; height: 100px; position: relative; 
+   	#wrap{width:800px; height:900px; margin:0px auto}
+   	#header{wedth:800px; height: 100px; position: relative; 
    	background: #FFBFBF 
    	url(http://localhost:8080/spring_mvc1/common/images/header_background.png) no-repeat;}
    	#logo{position: absolute; top:20px;left:50px}
-   	#content{width: 1000px; height:700px; position: relative;}
-   	#footer{width:1000px; height:100px}
+   	#content{width: 800px; height:700px; position: relative;}
+   	#footer{width:800px; height:100px}
    	#footer_text{width:500px;height:80px; padding-top:20px;float:right; padding-right: 10px}
    	
    	.tab {
@@ -72,7 +72,7 @@ function chkNull(){
 	<div id="content">
 	
 		<div id="main_banner">
-			<img src="http://localhost:8080/spring_mvc1/images/main/main_banner.png">
+			<img src="http://localhost:8080/car_prj/images/main/main_banner.png">
 		</div>
 		
 	<div id="notice" style="width:800px; height:360px;top:100px;'margin:0px auto">
@@ -106,7 +106,7 @@ function chkNull(){
 			<c:forEach var="notice" items="${requestScope.noticeList }">
 			<tr>
 				<td><c:out value="${notice.num }"/></td>
-				<td> <a href="notice/read_notice_detail.do"><c:out value="${notice.title }"/></td>
+				<td> <a href="notice/read_notice_detail.do?num=${ notice.num }"><c:out value="${notice.title }"/></a></td>
 				<td>관리자</td>
 				<td><c:out value="${notice.hiredate }"/></td>
 			</tr>	
