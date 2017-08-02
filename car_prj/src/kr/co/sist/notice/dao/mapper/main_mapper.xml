@@ -12,7 +12,15 @@
 					FROM NOTICE
 					ORDER BY HIREDATE))
 	ORDER BY NUM DESC				
+	
 	</select>   
+	
+	<select id="noticeCnt" resultType="kr.co.sist.notice.domain.NoticeCntData"  >
+		
+	SELECT COUNT(*) CNT
+	FROM NOTICE
+		
+	</select>
 	
 	<select id="noticeDetailView" parameterType="int" resultType="kr.co.sist.notice.domain.NoticeData"  >
 		

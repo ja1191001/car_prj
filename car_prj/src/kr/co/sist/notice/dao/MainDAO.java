@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.notice.domain.NoticeCntData;
 import kr.co.sist.notice.domain.NoticeData;
 import kr.co.sist.notice.vo.NoticeVO;
 @Component
@@ -24,6 +25,18 @@ public class MainDAO {
 		}//end if
 		
 		return list;
+	}//selectCar
+	
+	public NoticeCntData selectNoticeCnt()throws SQLException{
+		NoticeCntData ncd =null;
+		
+		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
+		ncd=ss.selectOne("noticeCnt");
+		if(ss!=null){
+			ss.close();
+		}//end if
+		
+		return ncd;
 	}//selectCar
 	
 	public NoticeData selectNoticeDetail( int num )throws SQLException{

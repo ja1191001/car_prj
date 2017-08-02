@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.notice.dao.MainDAO;
+import kr.co.sist.notice.domain.NoticeCntData;
 import kr.co.sist.notice.domain.NoticeData;
 import kr.co.sist.notice.vo.NoticeVO;
 @Component("main_service")
@@ -31,6 +32,19 @@ public class MainService {
 		
 		return list;
 	}//searchNotice
+	
+	public NoticeCntData searchNoticeCnt(){
+		
+		NoticeCntData ncd=null;
+		
+		try {
+			ncd=md.selectNoticeCnt();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+		
+		return ncd;
+	}//searchNoticeCnt
 	
 //	public List<NoticeData> searchNoticeDetail(NoticeVO n_vo){
 	public NoticeData searchNoticeDetail(int num){	

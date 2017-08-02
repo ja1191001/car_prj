@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.sist.notice.domain.NoticeCntData;
 import kr.co.sist.notice.domain.NoticeData;
 import kr.co.sist.notice.service.MainService;
 import kr.co.sist.notice.vo.NoticeVO;
@@ -30,14 +31,14 @@ public class MainController {
 		
 		//bean 꺼내기
 		MainService ms=ac.getBean("main_service",MainService.class); //리플렉트
-
 		
 		
 		//업무처리 결과 받기, View로 전달
 		List<NoticeData> noticeList=ms.searchNotice();
+		NoticeCntData ncd=ms.searchNoticeCnt();
 		
 		model.addAttribute("noticeList",noticeList);
-		
+		model.addAttribute("notice_cnt",ncd);
 		 return "main/index";
 	 }//configLocation
 	
