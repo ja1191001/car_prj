@@ -10,4 +10,6 @@
 	<context:component-scan base-package="kr.co.sist.notice.dao.*"/>
 	<context:component-scan base-package="kr.co.sist.notice.service"/> 
 	<context:component-scan base-package="kr.co.sist.notice.service.*"/>
+	<context:component-scan base-package="kr.co.sist.notice.vo"/> 
+	<context:component-scan base-package="kr.co.sist.notice.vo.*"/>
 </beans>

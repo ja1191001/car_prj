@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.sist.notice.domain.NoticeCntData;
 import kr.co.sist.notice.domain.NoticeData;
+import kr.co.sist.notice.domain.NoticePageData;
 import kr.co.sist.notice.service.MainService;
 import kr.co.sist.notice.vo.NoticeVO;
+import kr.co.sist.notice.vo.NoticeValueVO;
 import kr.co.sist.notice.util.HangulConv;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -23,7 +25,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MainController {
 
 	@RequestMapping(value="/index.do",method=GET)
-	 public String mainPage(Model model, NoticeVO n_vo){//model을 매개변수로 선언해 준다
+	 public String mainPage(Model model, NoticeValueVO nvVO, @RequestParam(defaultValue="1")int currentPage, @RequestParam(defaultValue="")String columnName, @RequestParam(defaultValue="")String keyword){//model을 매개변수로 선언해 준다
 		 
 		String configLocation="kr/co/sist/notice/controller/app_con.xml";
 		//Spring Container 사용
@@ -32,13 +34,17 @@ public class MainController {
 		//bean 꺼내기
 		MainService ms=ac.getBean("main_service",MainService.class); //리플렉트
 		
-		
 		//업무처리 결과 받기, View로 전달
-		List<NoticeData> noticeList=ms.searchNotice();
 		NoticeCntData ncd=ms.searchNoticeCnt();
+		nvVO= ms.inputValue(ncd, currentPage, columnName, keyword);
+		List<NoticeData> noticeList=ms.searchNotice(nvVO);
+		NoticePageData npd=ms.searchNoticePage(currentPage, ncd);
+		
+		
 		
 		model.addAttribute("noticeList",noticeList);
 		model.addAttribute("notice_cnt",ncd);
+		model.addAttribute("noticePage",npd);
 		 return "main/index";
 	 }//configLocation
 	

@@ -11,6 +11,11 @@ public class NoticeCntData {
 		this.num = num;
 	}
 
+	@Override
+	public String toString() {
+		return "NoticeCntData [num=" + num + "]";
+	}
+
 	
 	
 }

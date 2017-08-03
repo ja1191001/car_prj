@@ -1,3 +1,5 @@
+<%@page import="kr.co.sist.notice.vo.NoticeValueVO"%>
+<%@page import="java.util.List"%>
 <%@page import="kr.co.sist.notice.controller.MainController"%>
 <%@page import="kr.co.sist.notice.dao.MainDAO"%>
 <%@page import="kr.co.sist.notice.util.HangulConv"%>
@@ -79,46 +81,7 @@ function chkNull(){
 		</div>
 		
 	<div id="notice" style="width:800px; height:360px;top:100px;'margin:0px auto">
-	<%
-		//index List를 클릭했을 때 발생하는 parameter
-		String paramPage=request.getParameter("currentPage");
-		//검색을 위한 컬럼명
-		String columnName=request.getParameter("field");
-		//검색을 위한 값
-		String keyword=request.getParameter("keyword");
-		if(columnName==null){
-			columnName="";
-		}//end if
-		if(keyword==null){
-			keyword="";
-		}//end if
-		keyword=HangulConv.toUTF(keyword);
-	%>
 	<c:set var="totalCount" value="${requestScope.notice_cnt }"/>
-	<%
-	//이벤트의 전체 수
-		//int totalCount=c_dao.selectAllEvtCnt(columnName,keyword);
-		int totalCount = Integer.valueOf("" + pageContext.getAttribute("totalCount"));
-	//한 화면에 보여줄 게시물의 수
-	int pageScale=15;
-	//전체 페이지 수
-	int totalPage=0;
-	totalPage=totalCount/pageScale;
-	if(totalCount%pageScale!=0){//나머지가 존재하는 경우
-		totalPage++;
-	}//end if
-	//시작번호
-	int startNum=1;
-	if(paramPage !=null){
-		startNum=Integer.parseInt(paramPage)*pageScale-pageScale+1;
-	}//end if
-	//끝번호
-	int endNum=startNum+pageScale-1;
-	//시작번호와 끝 번호 사이의 이벤트 조회
-	//검색값이 있다면 검색값에 대한 이벤트를 조회
-	List<ListVO> list=c_dao.selectEvt(startNum, endNum, columnName, keyword);
-	pageContext.setAttribute("list", list);
-	%>
 	<%-- <%= totalCount %>건<br/>
 	한 화면에 보여줄 글 수 <%=pageScale %>건<br/>
 	필요한 장 <%= totalPage %>장<br/>
@@ -158,6 +121,12 @@ function chkNull(){
 	</c:choose>
 	</tbody>
 	</table>
+	<br/>
+<c:if test="${ not empty requestScope.noticePage }">
+<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
+[ <a href="index.do?currentPage=${ i }&field=${ columnName}&keyword=${ keyword}" >${ i }</a> ]
+</c:forEach>
+</c:if>
 	</div>
 	<div style="text-align:center;">
 	
@@ -165,8 +134,8 @@ function chkNull(){
 	<div style="text-align: center;">
 	<form action="index.jsp" method="get" name="searchFrm">
 		<select name="field">
-			<option value="subject">제목</option>
-			<option value="contents"">내용</option>
+			<option value="title">제목</option>
+			<option value="content"">내용</option>
 		</select>
 		<input type="text" name="keyword" class="inputBox" value=""/>
 		

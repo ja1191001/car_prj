@@ -10,16 +10,19 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.notice.domain.NoticeCntData;
 import kr.co.sist.notice.domain.NoticeData;
 import kr.co.sist.notice.vo.NoticeVO;
+import kr.co.sist.notice.vo.NoticeValueVO;
 @Component
 public class MainDAO {
 	
 	@Autowired(required=false)
 	
-	public List<NoticeData> selectNotice()throws SQLException{
+	public List<NoticeData> selectNotice(NoticeValueVO nvv)throws SQLException{
 		List<NoticeData> list=null;
 		
 		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
-		list=ss.selectList("noticeView");
+		System.out.println("------------------------"+ nvv);
+		list=ss.selectList("noticeView",nvv);
+		
 		if(ss!=null){
 			ss.close();
 		}//end if
@@ -32,6 +35,7 @@ public class MainDAO {
 		
 		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
 		ncd=ss.selectOne("noticeCnt");
+		System.out.println("DAO==="+ ncd);
 		if(ss!=null){
 			ss.close();
 		}//end if

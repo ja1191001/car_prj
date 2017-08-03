@@ -1,7 +1,7 @@
 package kr.co.sist.notice.domain;
 
 public class NoticeData {
-	private int num;
+	private int num ;
 	private String title, hiredate, content;
 
 	
@@ -29,6 +29,10 @@ public class NoticeData {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	@Override
+	public String toString() {
+		return "NoticeData [num=" + num + ", title=" + title + ", hiredate=" + hiredate + ", content=" + content + "]";
 	}
 	
 	
