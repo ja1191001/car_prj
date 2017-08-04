@@ -25,7 +25,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MainController {
 
 	@RequestMapping(value="/index.do",method=GET)
-	 public String mainPage(Model model, NoticeValueVO nvVO, @RequestParam(defaultValue="1")int currentPage, @RequestParam(defaultValue="")String columnName, @RequestParam(defaultValue="")String keyword){//model을 매개변수로 선언해 준다
+	 public String mainPage(Model model, NoticeValueVO nvVO, @RequestParam(defaultValue="1")int currentPage, @RequestParam(defaultValue="",value="columnName")String columnName, @RequestParam(defaultValue="",value="keyword")String keyword){//model을 매개변수로 선언해 준다
 		 
 		String configLocation="kr/co/sist/notice/controller/app_con.xml";
 		//Spring Container 사용
@@ -36,11 +36,13 @@ public class MainController {
 		
 		//업무처리 결과 받기, View로 전달
 		NoticeCntData ncd=ms.searchNoticeCnt();
+		NoticePageData npd=ms.searchNoticePage(currentPage, ncd);
+
 		nvVO= ms.inputValue(ncd, currentPage, columnName, keyword);
 		List<NoticeData> noticeList=ms.searchNotice(nvVO);
-		NoticePageData npd=ms.searchNoticePage(currentPage, ncd);
 		
 		
+		System.out.println(columnName+" / keyowrd :"+keyword);
 		
 		model.addAttribute("noticeList",noticeList);
 		model.addAttribute("notice_cnt",ncd);

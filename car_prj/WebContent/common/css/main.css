@@ -31,7 +31,7 @@ a {
 }
 
 a:HOVER {
-	color: #356DFF, text-decoration:underline
+	color: #404040, text-decoration:underline
 }
 
 address, caption, cite, code, dfn, em, var {
@@ -58,6 +58,6 @@ address, caption, cite, code, dfn, em, var {
 	height:20px;
 	padding-left: 3px;
 	padding-right: 3px;
-	border: 1px solid #EDEDED;
-	background-color: #c6ebee
+	border: 1px solid #FFBB05;
+	background-color: #FFBB05
 }

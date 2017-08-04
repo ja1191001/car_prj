@@ -20,7 +20,6 @@ public class MainDAO {
 		List<NoticeData> list=null;
 		
 		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
-		System.out.println("------------------------"+ nvv);
 		list=ss.selectList("noticeView",nvv);
 		
 		if(ss!=null){
@@ -35,7 +34,6 @@ public class MainDAO {
 		
 		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
 		ncd=ss.selectOne("noticeCnt");
-		System.out.println("DAO==="+ ncd);
 		if(ss!=null){
 			ss.close();
 		}//end if

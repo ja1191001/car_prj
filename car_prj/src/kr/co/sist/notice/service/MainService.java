@@ -29,7 +29,6 @@ public class MainService {
 		List<NoticeData> list=null;
 		
 		try {
-			System.out.println("======searchNotice  "+ nvVO);
 			list=md.selectNotice(nvVO);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -47,8 +46,11 @@ public class MainService {
 		
 		if(endNum<=15){startNum=1;}//해당목록 최고 번호가 15 밑이라면 시작번호는 무조건 1번
 		
-		keyword=HangulConv.toUTF(keyword);
+		keyword="%"+HangulConv.toUTF(keyword)+"%";
 
+		System.out.println(columnName);
+		System.out.println(keyword);
+		
 		nvv.setStartNum(startNum);
 		nvv.setEndNum(endNum);
 		nvv.setColumName(columnName);
@@ -87,7 +89,6 @@ public class MainService {
 		
 		try {
 			ncd=md.selectNoticeCnt();
-			System.out.println("nnnnn"+ncd.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}//end catch

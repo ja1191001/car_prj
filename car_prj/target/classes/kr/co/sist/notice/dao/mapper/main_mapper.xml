@@ -7,8 +7,8 @@
 	<select id="noticeView" parameterType="kr.co.sist.notice.vo.NoticeValueVO" resultType="kr.co.sist.notice.domain.NoticeData" >
 	
 	SELECT NUM, TITLE, HIREDATE
-	FROM (SELECT ROWNUM NUM, TITLE, HIREDATE	
-			FROM	(SELECT TITLE, HIREDATE
+	FROM (SELECT ROWNUM NUM, CONTENT, TITLE, HIREDATE	
+			FROM	(SELECT TITLE, CONTENT, HIREDATE
 					FROM NOTICE
 					ORDER BY HIREDATE))
 	WHERE NUM BETWEEN #{startNum} AND #{endNum}

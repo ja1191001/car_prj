@@ -9,25 +9,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" 
-   href="http://localhost:8080/car_prj/common/css/main.css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Hyerim RentCar</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/fontAwesome.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/templatemo-style.css">
+		<link rel="stylesheet" href="http://localhost:8080/car_prj/common/css/main.css">
    	<style type="text/css">
-   	#wrap{width:800px; height:900px; margin:0px auto}
-   	#header{width:1000px; height: 100px; position: relative; 
+	#agr_wrap{margin:0px auto;width:650px; height:600px}
+	#agr_header{text-align:center}
+	#agr_footer{text-align:center;margin-top:30px}
+ 	.ag_1{ border:1px solid #333; width:650px; min-height: 250px; overflow: auto;}
+   	#wrap{width:700px; min-height:100px; margin:0px auto}
+   	#header{wedth:700px; height: 100px; position: relative; 
    	background: #FFBFBF 
-   	url(http://localhost:8080/spring_mvc1/common/images/header_background.png) no-repeat;}
+   	url(http://localhost:8080/car_prj/common/images/header_background.png) no-repeat;}
    	#logo{position: absolute; top:20px;left:50px}
-   	#content{width: 800px; min-height:700px; position: relative;}
-   	#footer{width:1000px; height:100px}
+   	#content{width: 700px; min-height: 100px; position: relative;}
+   	#footer{width:700px; height:100px;}
    	#footer_text{width:500px;height:80px; padding-top:20px;float:right; padding-right: 10px}
-   	
+   	.btn{
+   	height: 25px;}
    	.tab {
-   border-top: 3px solid #5B7CE5;
+   border-top: 3px solid #404040;
    border-spacing: 0px
 }
 
 th {
+	text-align: center;
    font-weight: normal;
    background-color: #FAFAFA;
    border-bottom: 1px solid #E7E7E7;
@@ -49,26 +66,52 @@ td {
 
 tr:HOVER {background-color: #EAE9F7}
    </style>
-</head> 
-<body>
-<%
- 
-%>
-
-  <div id="wrap">
-	<div id="header">
-		<div id="logo">
-			<a href="#"><img src="http://localhost:8080/spring_mvc1/common/images/default.jpg" width="100" height="60" title="메인으로"></a>
-		</div>
-	</div>	
-	<div id="content">
+<script type="text/javascript">
+function chkNull(){
+	var obj=document.searchFrm;
+	if(obj.keyword.value==""){
+		alert("검색어를 입력해 주세요");
+		obj.keyword.focus();
+		return;
+	}//end if
+	//var columnName=obj.field.value;
+	//var keyword=obj.keyword.value;
 	
-		<div id="main_banner">
-			<img src="http://localhost:8080/car_prj/images/main/main_banner.png">
-		</div>
+	obj.submit();
+}//chkNull
+
+</script>   
+</head>
+<body>
+	<!-- 작성일 : 2017. 7. 26.
+		  작성자 : user
+		  내용 : 			
+	-->
+	 <div class="overlay"></div>
+        <section class="top-part">
+        </section>
+        
+        <section class="cd-hero">
+		<div class="cd-slider-nav">
 		
-	<div id="notice" style="width:800px; height:360px;top:100px;'margin:0px auto">
-    
+		<c:import url="${ request.contextPath }/menu.do"/>
+		</div>
+
+     <!--      <ul>
+
+            <li> -->
+              <div class="heading">
+                <h1>공지사항</h1>
+                <span>공지사항</span>
+              </div>
+              <div class="cd-full-width first-slide" style="min-height:750px ">
+                <div class="container" style="height: 400px">
+                  <div class="row">
+             <!--        <div class="col-md-12"> -->
+                       <div class="content first-content">
+	<div id="wrap">
+	<div id="content">
+	<div id="notice" style="width:700px; min-height:360px;top:100px;'margin:0px auto">
  <table class="tab" style="margin: 10px; min-height: 300px;">
 	<colgroup>
 		<col width="9%"/>
@@ -99,7 +142,6 @@ tr:HOVER {background-color: #EAE9F7}
 	</tbody>
  </table>
 </div>
-</div>
 <div align="center" >
 <c:if test="${1 < requestScope.detail_data.num }">
 <a href="read_notice_detail.do?num=${ requestScope.detail_data.num-1 }"><input type="button" class="btn" value="이전 글" ></a>
@@ -109,11 +151,24 @@ tr:HOVER {background-color: #EAE9F7}
 </c:if>
 <a href="../index.do"><input type="button" class="btn" value="목록으로" ></a>
 </div>
-<div id="footer">
-		<div id="footer_text">
+</div>
+</div>
+ </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+	<footer>
+		<!-- <div id="footer_text"> -->
 		Copyright &copy; 2017 class4 dongha, All Right Reserved
-		</div>
-</div>
-</div>
+		<!-- </div> -->
+	</footer>
+	 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
 </body>
 </html>
