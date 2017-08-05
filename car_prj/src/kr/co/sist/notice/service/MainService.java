@@ -40,16 +40,14 @@ public class MainService {
 	public NoticeValueVO inputValue(NoticeCntData ncd, int currentPage, String columnName, String keyword){
 		NoticeValueVO nvv=new NoticeValueVO();
 		int pageScale=15;
-		
 		int endNum=ncd.getNum()-(currentPage-1)*pageScale; 
 		int startNum=endNum-14;
 		
 		if(endNum<=15){startNum=1;}//해당목록 최고 번호가 15 밑이라면 시작번호는 무조건 1번
 		
-		keyword="%"+HangulConv.toUTF(keyword)+"%";
-
-		System.out.println(columnName);
-		System.out.println(keyword);
+//		keyword="%"+HangulConv.toUTF(keyword)+"%";
+		keyword="%"+keyword+"%";
+		System.out.println(keyword+"------무엇으로 찍히나-----");
 		
 		nvv.setStartNum(startNum);
 		nvv.setEndNum(endNum);
@@ -80,6 +78,7 @@ public class MainService {
 		npd.setTatalPage(totalPage);
 		npd.setFirstPage(firstPage);
 		npd.setLastPage(lastPage);
+		npd.setCurrentPage(currentPage);
 		return npd;
 	}
 	

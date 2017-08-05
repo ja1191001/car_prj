@@ -76,8 +76,6 @@ function chkNull(){
 		obj.keyword.focus();
 		return;
 	}//end if
-	//var columnName=obj.field.value;
-	//var keyword=obj.keyword.value;
 	
 	obj.submit();
 }//chkNull
@@ -150,9 +148,19 @@ function chkNull(){
 	<br/>
 <div align="center">
 <c:if test="${ not empty requestScope.noticePage }">
-<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
-[ <a href="index.do?currentPage=${ i }&field=${ columnName}&keyword=${ keyword}" >${ i }</a> ]
-</c:forEach>
+	<c:if test="${requestScope.noticePage.currentPage !=1 }">
+		<a href="index.do?currentPage=${noticePage.currentPage-1 }&field=${ columnName}&keyword=${ keyword}" ><img alt="이전 페이지" src="http://localhost:8080/car_prj/images/btn_prev.png" title="이전 페이지"></a>
+	</c:if>
+	
+	<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
+	[ <a href="index.do?currentPage=${ i }&field=${ columnName}&keyword=${ keyword}" >${ i }</a> ]
+	</c:forEach>
+	
+	<c:out value="${ requestScope.noticePage.lastPage}"/> 
+	
+	<c:if test="${requestScope.noticePage.currentPage  != requestScope.noticePage.lastPage }">
+		<a href="index.do?currentPage=${noticePage.currentPage+1 }&field=${ columnName}&keyword=${ keyword}" ><img alt="다음 페이지" src="http://localhost:8080/car_prj/images/btn_next.png" title="다음 페이지"></a>
+	</c:if>
 </c:if>
 </div>	
 	<div style="text-align: center; min-height: 100px;" >
@@ -163,6 +171,7 @@ function chkNull(){
 		</select>
 		<input type="text" name="keyword" class="inputBox" value=""/>
 		<%-- <c:set  var="columnName" value=""/> --%>
+		<!-- <input type="button" value="검색" class="btn" onclick="chkNull('columnName','keyword')" /> -->
 		<input type="button" value="검색" class="btn" onclick="chkNull('columnName','keyword')" />
 		
 	</form>

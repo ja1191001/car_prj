@@ -24,7 +24,7 @@
 			</choose>
 		</if>
 	</if> 
-	ORDER BY NUM DESC				
+	ORDER BY HIREDATE DESC				
 	
 	</select>   
 	

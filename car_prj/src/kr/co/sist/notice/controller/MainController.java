@@ -42,11 +42,11 @@ public class MainController {
 		List<NoticeData> noticeList=ms.searchNotice(nvVO);
 		
 		
-		System.out.println(columnName+" / keyowrd :"+keyword);
 		
 		model.addAttribute("noticeList",noticeList);
 		model.addAttribute("notice_cnt",ncd);
 		model.addAttribute("noticePage",npd);
+
 		 return "main/index";
 	 }//configLocation
 	
