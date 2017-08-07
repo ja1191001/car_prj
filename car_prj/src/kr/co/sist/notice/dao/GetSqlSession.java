@@ -15,6 +15,7 @@ public class GetSqlSession {
 	
 	private GetSqlSession(){
 		//MyBatis로그를 남기기 위한 method 호출
+		
 		org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 	}
 	

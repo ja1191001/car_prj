@@ -17,12 +17,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-        <link rel="stylesheet" href="http://localhost:8080/spring_mvc1/template/css/bootstrap.css">
-        <link rel="stylesheet" href="http://localhost:8080/spring_mvc1/template/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://localhost:8080/spring_mvc1/template/css/bootstrap-theme.css">
-        <link rel="stylesheet" href="http://localhost:8080/spring_mvc1/template/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="http://localhost:8080/spring_mvc1/template/css/fontAwesome.css">
-        <link rel="stylesheet" href="http://localhost:8080/spring_mvc1/template/css/templatemo-style.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/fontAwesome.css">
+        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/templatemo-style.css">
 		<link rel="stylesheet" href="http://localhost:8080/car_prj/common/css/main.css">
    	<style type="text/css">
 	#agr_wrap{margin:0px auto;width:650px; height:600px}
@@ -32,12 +32,14 @@
    	#wrap{width:700px; min-height:100px; margin:0px auto}
    	#header{wedth:700px; height: 100px; position: relative; 
    	background: #FFBFBF 
-   	url(http://localhost:8080/spring_mvc1/common/images/header_background.png) no-repeat;}
+   	url(http://localhost:8080/car_prj/common/images/header_background.png) no-repeat;}
    	#logo{position: absolute; top:20px;left:50px}
    	#content{width: 700px; min-height: 100px; position: relative;}
    	#footer{width:700px; height:100px;}
    	#footer_text{width:500px;height:80px; padding-top:20px;float:right; padding-right: 10px}
-   	
+   	.btn{
+   	height: 25px
+   	}
    	.tab {
    border-top: 3px solid #404040;
    border-spacing: 0px
@@ -69,11 +71,20 @@ tr:HOVER {background-color: #EAE9F7}
 <script type="text/javascript">
 function chkNull(){
 	var obj=document.searchFrm;
-	if(obj.keyword.value==""){
-		alert("검색어를 입력해 주세요");
-		obj.keyword.focus();
+	//검색란이 공란인 상태로 검색시 전체 검색으로 적용
+	/* if(obj.keyword.value==""){
+		 alert("검색어를 입력해 주세요");
+		obj.keyword.focus(); 
+		
 		return;
-	}//end if
+	}//end if */
+	
+	obj.submit();
+}//chkNull
+
+function chkValue(){
+	var obj=document.movePage;
+	
 	obj.submit();
 }//chkNull
 
@@ -98,18 +109,17 @@ function chkNull(){
 
             <li> -->
               <div class="heading">
-                <h1>메인타이틀</h1>
-                <span>서브타이틀</span>
+                <h1>공지사항</h1>
+                <span>공지사항</span>
               </div>
-              <div class="cd-full-width first-slide">
-                <div class="container">
-                  <div class="row">
+              <div class="cd-full-width first-slide" style="height: 750px">
+                <div class="container" style="height: 400px">
+                  <div class="row" style="height: 400px;">
                     <div class="col-md-12">
                       <div class="content first-content">
 	<div id="wrap">
 	<div id="content">
-	<div id="notice" style="width:700px; min-height:550px;top:100px;'margin:0px auto">
-	<c:set var="totalCount" value="${requestScope.notice_cnt }"/>
+	<div id="notice" style="width:750px; min-height:700px;top:100px;'margin:0px auto">
 	<table class="tab" style="margin: 10px">
 		<colgroup>
 			<col width="10%"/>
@@ -144,29 +154,45 @@ function chkNull(){
 	</tbody>
 	</table>
 	<br/>
+	<form action="index.do" method="get" name="movePage">	
 <div align="center">
 <c:if test="${ not empty requestScope.noticePage }">
-<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
-[ <a href="index.do?currentPage=${ i }&field=${ columnName}&keyword=${ keyword}" >${ i }</a> ]
-</c:forEach>
+	<c:if test="${requestScope.noticePage.currentPage !=1 }">
+		<a href="index.do?currentPage=${noticePage.currentPage-1 }&columnName=${ columnName}&keyword=${ keyword}" ><img alt="이전 페이지" src="http://localhost:8080/car_prj/images/btn_prev.png" title="이전 페이지"></a>
+	</c:if>
+	<c:choose>
+	<c:when test="${ empty param.columnName }">
+	
+	<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
+	[ <a href="index.do?currentPage=${ i }">${ i }</a> ]
+	</c:forEach> 
+	
+	</c:when>
+	<c:otherwise>
+	<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
+	[ <a href="index.do?currentPage=${ i }&columnName=${ param.columnName}&keyword=${ param.keyword}" >${ i }</a> ]
+	</c:forEach>
+	
+	</c:otherwise>
+	</c:choose>
+	<c:if test="${requestScope.noticePage.currentPage  != requestScope.noticePage.lastPage }">
+		<a href="index.do?currentPage=${noticePage.currentPage+1 }&columnName=${ columnName}&keyword=${ keyword}" onclick="chkValue()" ><img alt="다음 페이지" src="http://localhost:8080/car_prj/images/btn_next.png" title="다음 페이지"></a>
+	</c:if>
 </c:if>
 </div>	
-	</div>
-	<div style="text-align:center;">
-	
-	</div>
+</form>
 	<div style="text-align: center; min-height: 100px;" >
-	<form action="index.jsp" method="get" name="searchFrm">
-		<select name="field">
+	<form action="index.do" method="get" name="searchFrm">
+		<select name="columnName">
 			<option value="title">제목</option>
 			<option value="content">내용</option>
 		</select>
 		<input type="text" name="keyword" class="inputBox" value=""/>
-		
-		<input type="button" value="검색" class="btn" onclick="chkNull()" />
+		<input type="button" value="검색" class="btn" onclick="chkNull('columnName','keyword')" />
 		
 	</form>
 
+	</div>
 	</div>
 	</div>
 	</div>
@@ -178,7 +204,7 @@ function chkNull(){
        <!--      </li>
           </ul> .cd-hero-slider -->
         </section> <!-- .cd-hero -->
-	<footer>
+	<footer >
 		<!-- <div id="footer_text"> -->
 		Copyright &copy; 2017 class4 dongha, All Right Reserved
 		<!-- </div> -->

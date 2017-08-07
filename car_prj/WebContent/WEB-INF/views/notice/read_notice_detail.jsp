@@ -149,7 +149,8 @@ function chkNull(){
 <c:if test="${ not empty (requestScope.detail_data.num+1) }">
 <a href="read_notice_detail.do?num=${ requestScope.detail_data.num+1 }"><input type="button" class="btn" value="다음 글" ></a>
 </c:if>
-<a href="../index.do"><input type="button" class="btn" value="목록으로" ></a>
+<!-- <a href="../index.do"><input type="button" class="btn" value="목록으로" ></a> -->
+<a href="#" onclick="history.go(-1);return false;"><input type="button" class="btn" value="목록으로" ></a>
 </div>
 </div>
 </div>

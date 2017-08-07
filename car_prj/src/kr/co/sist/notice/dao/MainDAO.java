@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.notice.domain.NoticeCntData;
 import kr.co.sist.notice.domain.NoticeData;
+import kr.co.sist.notice.vo.NoticeSearchVO;
 import kr.co.sist.notice.vo.NoticeVO;
 import kr.co.sist.notice.vo.NoticeValueVO;
 @Component
@@ -20,8 +21,9 @@ public class MainDAO {
 		List<NoticeData> list=null;
 		
 		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
-		list=ss.selectList("noticeView",nvv);
 		
+		System.out.println("====="+ nvv.getStartNum()+"/"+nvv.getEndNum());
+		list=ss.selectList("noticeView",nvv);
 		if(ss!=null){
 			ss.close();
 		}//end if
@@ -29,11 +31,11 @@ public class MainDAO {
 		return list;
 	}//selectCar
 	
-	public NoticeCntData selectNoticeCnt()throws SQLException{
+	public NoticeCntData selectNoticeCnt(NoticeSearchVO nsVO)throws SQLException{
 		NoticeCntData ncd =null;
 		
 		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
-		ncd=ss.selectOne("noticeCnt");
+		ncd=ss.selectOne("noticeCnt",nsVO);
 		if(ss!=null){
 			ss.close();
 		}//end if

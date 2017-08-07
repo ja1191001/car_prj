@@ -11,6 +11,7 @@ import kr.co.sist.notice.domain.NoticeCntData;
 import kr.co.sist.notice.domain.NoticeData;
 import kr.co.sist.notice.domain.NoticePageData;
 import kr.co.sist.notice.util.HangulConv;
+import kr.co.sist.notice.vo.NoticeSearchVO;
 import kr.co.sist.notice.vo.NoticeVO;
 import kr.co.sist.notice.vo.NoticeValueVO;
 import oracle.sql.TIMESTAMPLTZ;
@@ -37,6 +38,15 @@ public class MainService {
 		return list;
 	}//searchNotice
 	
+	public NoticeSearchVO inputSearchValue( String columnName, String keyword){
+		NoticeSearchVO nsVO=new NoticeSearchVO();
+		
+		nsVO.setColumnName(columnName);
+		nsVO.setKeyword(keyword);
+		
+		return nsVO;
+	}//inputSearchValue
+	
 	public NoticeValueVO inputValue(NoticeCntData ncd, int currentPage, String columnName, String keyword){
 		NoticeValueVO nvv=new NoticeValueVO();
 		int pageScale=15;
@@ -46,8 +56,8 @@ public class MainService {
 		if(endNum<=15){startNum=1;}//해당목록 최고 번호가 15 밑이라면 시작번호는 무조건 1번
 		
 //		keyword="%"+HangulConv.toUTF(keyword)+"%";
-		keyword="%"+keyword+"%";
-		System.out.println(keyword+"------무엇으로 찍히나-----");
+		System.out.println("=="+columnName+"------무엇으로 찍히나-----");
+		System.out.println("=="+keyword+"------무엇으로 찍히나-----");
 		
 		nvv.setStartNum(startNum);
 		nvv.setEndNum(endNum);
@@ -75,19 +85,19 @@ public class MainService {
 		
 		if(totalPage<lastPage){lastPage=totalPage;}//마지막 페이지가 10페이지가 안될 경우
 		
-		npd.setTatalPage(totalPage);
+		npd.setTotalPage(totalPage);
 		npd.setFirstPage(firstPage);
 		npd.setLastPage(lastPage);
 		npd.setCurrentPage(currentPage);
 		return npd;
 	}
 	
-	public NoticeCntData searchNoticeCnt(){
-		
+	public NoticeCntData searchNoticeCnt(NoticeSearchVO nsVO){
+
 		NoticeCntData ncd=null;
 		
 		try {
-			ncd=md.selectNoticeCnt();
+			ncd=md.selectNoticeCnt(nsVO);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}//end catch

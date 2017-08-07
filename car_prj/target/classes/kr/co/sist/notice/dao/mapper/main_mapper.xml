@@ -10,28 +10,36 @@
 	FROM (SELECT ROWNUM NUM, CONTENT, TITLE, HIREDATE	
 			FROM	(SELECT TITLE, CONTENT, HIREDATE
 					FROM NOTICE
+					<where>
+					 <if test="keyword != ''" >
+								 <if test="columnName=='title'">
+									 TITLE LIKE '%'||#{keyword}||'%'
+									</if>
+								 <if test="columnName=='content'">
+									 CONTENT LIKE '%'||#{keyword}||'%'
+									</if>
+					</if> 
+					</where>
 					ORDER BY HIREDATE))
 	WHERE NUM BETWEEN #{startNum} AND #{endNum}
-	 <if test="keyword != ''">
-		<if test="columnName != ''">
-			<choose>
-				<when test="columnName=='title'">
-					AND  TITLE LIKE #{keyword}
-				</when>
-				<when test="columnName=='content'">
-					AND  CONTENT LIKE #{keyword}
-				</when>
-			</choose>
-		</if>
-	</if> 
 	ORDER BY HIREDATE DESC				
 	
 	</select>   
 	
-	<select id="noticeCnt" resultType="kr.co.sist.notice.domain.NoticeCntData"  >
+	<select id="noticeCnt" parameterType="kr.co.sist.notice.vo.NoticeSearchVO"  resultType="kr.co.sist.notice.domain.NoticeCntData"  >
 		
 	SELECT COUNT(*) NUM
 	FROM NOTICE
+	<where>
+		 <if test="keyword != ''" >
+					 <if test="columnName=='title'">
+						TITLE LIKE '%'|| #{keyword} ||'%'
+						</if>
+					 <if test="columnName=='content'">
+						CONTENT LIKE '%'|| #{keyword} ||'%'
+						</if>
+		</if> 
+	</where>
 		
 	</select>
 	

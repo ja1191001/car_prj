@@ -71,11 +71,19 @@ tr:HOVER {background-color: #EAE9F7}
 <script type="text/javascript">
 function chkNull(){
 	var obj=document.searchFrm;
-	if(obj.keyword.value==""){
-		alert("검색어를 입력해 주세요");
-		obj.keyword.focus();
+	//검색란이 공란인 상태로 검색시 전체 검색으로 적용
+	/* if(obj.keyword.value==""){
+		 alert("검색어를 입력해 주세요");
+		obj.keyword.focus(); 
+		
 		return;
-	}//end if
+	}//end if */
+	
+	obj.submit();
+}//chkNull
+
+function chkValue(){
+	var obj=document.movePage;
 	
 	obj.submit();
 }//chkNull
@@ -146,23 +154,33 @@ function chkNull(){
 	</tbody>
 	</table>
 	<br/>
+	<form action="index.do" method="get" name="movePage">	
 <div align="center">
 <c:if test="${ not empty requestScope.noticePage }">
 	<c:if test="${requestScope.noticePage.currentPage !=1 }">
-		<a href="index.do?currentPage=${noticePage.currentPage-1 }&field=${ columnName}&keyword=${ keyword}" ><img alt="이전 페이지" src="http://localhost:8080/car_prj/images/btn_prev.png" title="이전 페이지"></a>
+		<a href="index.do?currentPage=${noticePage.currentPage-1 }&columnName=${ columnName}&keyword=${ keyword}" ><img alt="이전 페이지" src="http://localhost:8080/car_prj/images/btn_prev.png" title="이전 페이지"></a>
 	</c:if>
+	<c:choose>
+	<c:when test="${ empty param.columnName }">
 	
 	<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
-	[ <a href="index.do?currentPage=${ i }&field=${ columnName}&keyword=${ keyword}" >${ i }</a> ]
+	[ <a href="index.do?currentPage=${ i }">${ i }</a> ]
+	</c:forEach> 
+	
+	</c:when>
+	<c:otherwise>
+	<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
+	[ <a href="index.do?currentPage=${ i }&columnName=${ param.columnName}&keyword=${ param.keyword}" >${ i }</a> ]
 	</c:forEach>
 	
-	<c:out value="${ requestScope.noticePage.lastPage}"/> 
-	
+	</c:otherwise>
+	</c:choose>
 	<c:if test="${requestScope.noticePage.currentPage  != requestScope.noticePage.lastPage }">
-		<a href="index.do?currentPage=${noticePage.currentPage+1 }&field=${ columnName}&keyword=${ keyword}" ><img alt="다음 페이지" src="http://localhost:8080/car_prj/images/btn_next.png" title="다음 페이지"></a>
+		<a href="index.do?currentPage=${noticePage.currentPage+1 }&columnName=${ columnName}&keyword=${ keyword}" onclick="chkValue()" ><img alt="다음 페이지" src="http://localhost:8080/car_prj/images/btn_next.png" title="다음 페이지"></a>
 	</c:if>
 </c:if>
 </div>	
+</form>
 	<div style="text-align: center; min-height: 100px;" >
 	<form action="index.do" method="get" name="searchFrm">
 		<select name="columnName">
@@ -170,8 +188,6 @@ function chkNull(){
 			<option value="content">내용</option>
 		</select>
 		<input type="text" name="keyword" class="inputBox" value=""/>
-		<%-- <c:set  var="columnName" value=""/> --%>
-		<!-- <input type="button" value="검색" class="btn" onclick="chkNull('columnName','keyword')" /> -->
 		<input type="button" value="검색" class="btn" onclick="chkNull('columnName','keyword')" />
 		
 	</form>
