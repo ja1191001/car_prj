@@ -172,7 +172,7 @@ function chkValue(){
 	<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
 	[ <a href="index.do?currentPage=${ i }&columnName=${ param.columnName}&keyword=${ param.keyword}" >${ i }</a> ]
 	</c:forEach>
-	
+	<c:out value="${requestScope.noticePage.totalPage }"/>
 	</c:otherwise>
 	</c:choose>
 	<c:if test="${requestScope.noticePage.currentPage  != requestScope.noticePage.lastPage }">
